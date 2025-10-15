@@ -7,7 +7,7 @@ redirect_from:
   - /welcome.html
 ---
 
-Welcome to my personal website!
+Welcome to my website!
 
 <!-- 
 此处留待稍后添加内容
