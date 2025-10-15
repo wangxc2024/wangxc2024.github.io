@@ -11,54 +11,37 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* Ph.D. student at **Carnegie Mellon University**, 2025 - present
+* B.S. in Physics at **Jilin University**, China, 2020 - 2024
+  * Supervisor: Prof. Jin Wang (State University of New York, Stony Brook)
 
-Work experience
+Work Experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+* **Research Assistant**, 2024.7 - 2025.7
+  * CIAC, Chinese Academy of Sciences, China
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+* **Research Assistant**, 2023.7 - 2023.10
+  * Simon Fraser University, Canada
+  * Supervisor: Prof. Teresa Chuang
   
 Skills
 ======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* Python
+* Matlab
+* Claude
+* ChatGPT
+
+Awards
+======
+* President's Scholarship, Jilin University, 2024
+* Dean's Scholarship, College of Physics, Jilin University, 2024
+* First Prize of the Research Practice Scholarship, Jilin University, 2024
+* Outstanding Student Leader, College of Physics, Jilin University, 2021-2024
+* Provincial First Prize in the 36th Chinese Physics Olympiad (CPhO), 2019
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+

@@ -1,0 +1,315 @@
+%	The MIT License (MIT)
+%
+%	Copyright (c) 2021 Jitin Nair
+%
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+%	
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+%	THE SOFTWARE.
+%	
+%
+%-----------------------------------------------------------------------------------------------------------------------------------------------%
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT DEFINITION
+%----------------------------------------------------------------------------------------
+
+% article class because we want to fully customize the page and not use a cv template
+\documentclass[a4paper,12pt]{article}
+
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
+
+% % fontspec allows you to use TTF/OTF fonts directly
+% \usepackage{fontspec}
+% \defaultfontfeatures{Ligatures=TeX}
+
+% % modified for ShareLaTeX use
+% \setmainfont[
+% SmallCapsFont = Fontin-SmallCaps.otf,
+% BoldFont = Fontin-Bold.otf,
+% ItalicFont = Fontin-Italic.otf
+% ]
+% {Fontin.otf}
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{parskip} 	
+
+%other packages for formatting
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[scale=0.9]{geometry}
+
+%tabularx environment
+\usepackage{tabularx}
+
+%for lists within experience section
+\usepackage{enumitem}
+
+% centered version of 'X' col. type
+\newcolumntype{C}{>{\centering\arraybackslash}X} 
+
+%to prevent spillover of tabular into next pages
+\usepackage{supertabular}
+\usepackage{tabularx}
+\newlength{\fullcollw}
+\setlength{\fullcollw}{0.47\textwidth}
+
+%custom \section
+\usepackage{titlesec}				
+\usepackage{multicol}
+\usepackage{multirow}
+
+%CV Sections inspired by: 
+%http://stefano.italians.nl/archives/26
+\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{10pt}
+
+%for publications
+% % % % % % -------------------------------------------------
+% Publications setup
+% -------------------------------------------------
+\usepackage[
+  backend=biber,
+  style=authoryear,
+  sorting=ydnt,
+  maxnames=10
+]{biblatex}
+
+\addbibresource{citations.bib}
+
+\usepackage{xstring}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+
+% -------------------------------------------------
+% Bold your own name ("Wang, Xiaochen")
+% -------------------------------------------------
+% ---------- patch: publications name highlight (replace the existing name-format block) ----------
+% ensure ifthen is loaded (used by the formatting logic)
+\usepackage{ifthen}
+
+% NOTE: keep the single \addbibresource{citations.bib} you already have earlier;
+% if you have duplicates, remove the extra ones (leave only one).
+
+% use xstring/etoolbox as before (safe to load again if present)
+\usepackage{xstring}
+\usepackage{etoolbox}
+
+% Define a robust author name format that:
+% - prints surname, given (Wang, Xiaochen) for all authors (consistent "surname, given")
+% - bolds only when family==Wang AND given matches Xiaochen or initial X
+\DeclareNameFormat{author}{%
+  \nameparts{#1}% split name into parts
+  \edef\mygiven{\namepartgiven}%
+  \edef\myfamily{\namepartfamily}%
+  % canonical target name pieces (edit here if you want different match)
+  \def\targetFamily{Wang}%
+  \def\targetGiven{Xiaochen}%
+  \def\targetInit{X}% matches "Wang, X." or "Wang, X"
+  %
+  % compare family and given (allow exact given or single initial)
+  \ifboolexpr{
+    test {\ifstrequal{\myfamily}{\targetFamily}}
+    and
+    ( test {\ifstrequal{\mygiven}{\targetGiven}} or test {\ifstrequal{\mygiven}{\targetInit}} )
+  }
+    {% match -> bold surname and given
+      \textbf{\namepartfamily}, \textbf{\namepartgiven}%
+    }
+    {% otherwise -> normal surname, given
+      \namepartfamily, \namepartgiven%
+    }%
+  % comma between multiple authors
+  \ifthenelse{\value{listcount}<\value{liststop}}{,\space}{}%
+}
+
+% Ensure biblatex uses this format by default for displayed names
+\DeclareNameAlias{default}{author}
+\DeclareNameAlias{sortname}{author}
+\DeclareNameAlias{labelname}{author}
+% ---------- end patch ----------
+
+
+% -------------------------------------------------
+% References layout tweaks
+% -------------------------------------------------
+
+
+%Setup hyperref package, and colours for links
+\usepackage[unicode, draft=false]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
+\addbibresource{citations.bib}
+\setlength\bibitemsep{1em}
+
+%for social icons
+\usepackage{fontawesome5}
+
+%debug page outer frames
+%\usepackage{showframe}
+
+
+% job listing environments
+\newenvironment{jobshort}[2]
+    {
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+    \textbf{#1} & \hfill &  #2 \\[3.75pt]
+    \end{tabularx}
+    }
+    {
+    }
+
+\newenvironment{joblong}[2]
+    {
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+    \textbf{#1} & \hfill &  #2 \\[3.75pt]
+    \end{tabularx}
+    \begin{minipage}[t]{\linewidth}
+    \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+    }
+    {
+    \end{itemize}
+    \end{minipage}    
+    }
+
+
+
+%----------------------------------------------------------------------------------------
+%	BEGIN DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% non-numbered pages
+\pagestyle{empty} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+% \begin{tabularx}{\linewidth}{ @{}X X@{} }
+% \huge{Your Name}\vspace{2pt} & \hfill \emoji{incoming-envelope} email@email.com \\
+% \raisebox{-0.05\height}\faGithub\ username \ | \
+% \raisebox{-0.00\height}\faLinkedin\ username \ | \ \raisebox{-0.05\height}\faGlobe \ mysite.com  & \hfill \emoji{calling} number
+% \end{tabularx}
+
+\begin{tabularx}{\linewidth}{@{} C @{}}
+\Huge{Xiaochen Wang}\\[7.5pt]
+\href{https://wangxc2024.github.io/}{\raisebox{-0.05\height}\faGlobe \ wangxc2024.github.io} \ $|$ \ 
+\href{mailto:}{\raisebox{-0.05\height}\faEnvelope \ xiaoche4@andrew.cmu.edu} \ $|$ \ 
+\href{tel:+000000000000}{\raisebox{-0.05\height}\faMobile \ +1 412 478 6262}\\
+\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+% EXPERIENCE SECTIONS
+%----------------------------------------------------------------------------------------
+
+%Interests/ Keywords/ Summary
+
+
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+\section{Education}
+\begin{tabularx}{\linewidth}{@{}l X@{}}	
+2025 - present & Ph.D student at \textbf{Carnegie Mellon University} \hfill \normalsize \\
+
+2020 - 2024 & B.S. in Physics at \textbf{Jilin University}, China \hfill \\ 
+
+& \qquad Supervisor: Prof. Jin Wang (State University of New York, Stony Brook)
+
+\end{tabularx}
+%Experience
+\section{Work Experience}
+\begin{tabularx}{\linewidth}{@{}l X@{}}	
+2024.7 - 2025.7:& Research Assistant at CIAC, \textbf{Chinese Academy of Sciences}, China\\
+
+% & \qquad Supervisor: Prof. Jin Wang (State University of New York, Stony Brook)\\
+
+2023.7 - 2023.10:& Research Assistant at \textbf{Simon Fraser University}, Canada\\
+
+\end{tabularx}
+
+
+% \begin{joblong}{Designation}{Mar 2019 - Jan 2021}
+% \item long long line of blah blah that will wrap when the table fills the column width
+% \item again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah. again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah
+% \end{joblong}
+%	PUBLICATIONS
+%----------------------------------------------------------------------------------------
+\section{Publications}
+\begin{refsection}[citations.bib]
+\nocite{*}
+\printbibliography[heading=none]
+\end{refsection}
+
+%----------------------------------------------------------------------------------------
+  
+%Projects
+\section{Projects}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+% \textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
+\multicolumn{2}{@{}X@{}}{\textbf{Learning probability evolution fields from high-dimensional time series}: To uncover the underlying driving field of time series data, we trained deep networks using constraints adapted to the Hamilton-Jacobian method to find the critical subspace and evolution field functions, bridging high-dimensional experimental data and nonequilibrium statistical mechanics.(2024-2025)*}  \\
+
+\end{tabularx}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+% \textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
+\multicolumn{2}{@{}X@{}}{\textbf{Exploring the Brain with Nonequilibrium Statistical Physics}: To uncover the quantitative rules underlying brain network dynamics and provide a physical picture of how such complex systems operate efficiently, we apply methods from nonequilibrium statistical mechanics through modeling across levels from single neurons to multiple cortical areas, providing predictive indicators and quantitative relations.(2021-2023)*}\\
+
+\end{tabularx}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+% \textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
+\multicolumn{2}{@{}X@{}}{\textbf{Cerebra-Cerebellar Dynamics in Human Brain Health Using MEG Methods}: My work focused on using machine learning to analyze MEG data, quantifying the activity dynamics between the cerebellum and frontal cortex during specific behavioral paradigms. (2023)**}\\
+
+{*Supervised by Prof. Jin Wang (State University of New York, Stony Brook)}\\
+{**Supervised by Prof. Teresa Chuang (Simon Fraser University, Canada)}
+
+
+
+
+\end{tabularx}
+
+
+%----------------------------------------------------------------------------------------
+
+%	SKILLS
+%----------------------------------------------------------------------------------------
+% \section{Skills}
+% \begin{tabularx}{\linewidth}{@{}l X@{}}
+% Some Skills &  \normalsize{This, That, Some of this and that etc.}\\
+% Some More Skills  &  \normalsize{Also some more of this, Some more that, And some of this and that etc.}\\  
+% \end{tabularx}
+\section{Others}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+Some Skills &  \normalsize{Python, Matlab, Claude, Chatgpt etc.}\\
+Some Awards  &  \normalsize{President's Scholarship, Jilin University, 2024.} \\
+&  \normalsize{Dean's Scholarship, College of Physics, Jilin University, 2024. }\\  
+&  \normalsize{First Prize of the Research Practice Scholarship, Jilin University, 2024.}\\  
+&  \normalsize{Outstanding Student Leader, College of Physics, Jilin University, 2021 2024.}\\
+&  \normalsize{Provincial First Prize in the 36th Chinese Physics Olympiad (CPhO), 2019. }\\  
+
+\end{tabularx}
+
+\vfill
+\center{\footnotesize Last updated: \today}
+
+\end{document}
