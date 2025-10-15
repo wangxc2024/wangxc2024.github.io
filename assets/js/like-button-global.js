@@ -14,12 +14,12 @@
   let isUpdating = false;
 
   // 生成符合指数分布的随机正整数
-  // P(X = x) ∝ e^(-x), x = 1, 2, 3, ...
+  // P(X = x) ∝ e^(-0.01*x), x = 1, 2, 3, ...
   function generateExponentialInt() {
-    const lambda = 1;
+    const lambda = 0.01;
     const u = Math.random();
     const x = Math.ceil(-Math.log(u) / lambda);
-    return Math.max(1, Math.min(x, 10)); // 限制在 1-10 之间，避免过大
+    return Math.max(1, x); // 至少为 1，无上限
   }
 
   // 创建点赞按钮 HTML
@@ -186,10 +186,10 @@
         }
       </style>
       
-      <button id="like-button" title="给个赞吧！全球同步哦~">❤️</button>
+      <button id="like-button" title="Give me a like! Globally synchronized~">👍</button>
       <div id="like-count-wrapper">
         <div id="like-count">...</div>
-        <div id="like-label">点赞</div>
+        <div id="like-label">Likes</div>
       </div>
       <div id="like-increment"></div>
     `;
@@ -317,7 +317,7 @@
     setTimeout(() => {
       isUpdating = false;
       button.disabled = false;
-    }, 1000);
+    }, 10); // 0.01 秒冷却
     
     console.log(`🎉 点赞 +${increment}！总点赞数: ${newCount}`);
   }
