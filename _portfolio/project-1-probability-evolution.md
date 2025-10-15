@@ -2,7 +2,7 @@
 title: "Learning probability evolution fields from high-dimensional time series"
 excerpt: "Training deep networks using constraints adapted to the Hamilton-Jacobian method to find the critical subspace and evolution field functions, bridging high-dimensional experimental data and nonequilibrium statistical mechanics."
 collection: portfolio
-date: 2024-01-01
+date: 2025-01-01
 ---
 
 ## Project Overview

@@ -9,6 +9,8 @@ redirect_from:
 
 {% include base_path %}
 
+[Download CV (PDF)](/files/cv.pdf){: .btn .btn--info}
+
 Education
 ======
 * Ph.D. student at **Carnegie Mellon University**, 2025 - present
@@ -24,12 +26,11 @@ Work Experience
   * Simon Fraser University, Canada
   * Supervisor: Prof. Teresa Chuang
   
-Skills
+Publications
 ======
-* Python
-* Matlab
-* Claude
-* ChatGPT
+  <ul>{% for post in site.publications reversed %}
+    {% include archive-single-cv.html %}
+  {% endfor %}</ul>
 
 Awards
 ======
@@ -38,10 +39,4 @@ Awards
 * First Prize of the Research Practice Scholarship, Jilin University, 2024
 * Outstanding Student Leader, College of Physics, Jilin University, 2021-2024
 * Provincial First Prize in the 36th Chinese Physics Olympiad (CPhO), 2019
-
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
 
