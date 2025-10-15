@@ -1,10 +1,7 @@
 ---
-permalink: /
-title: "Welcome"
+permalink: /about/
+title: "About"
 author_profile: true
-redirect_from: 
-  - /about/
-  - /about.html
 ---
 
 Human behaviors and interactions shape most aspects of our lives, constrained by biological functions. My passion lies in quantitatively understanding such intelligence and living systems. On the other hand, in the evolutionary history of biology, powerful regulatory mechanism and control systems in organism have shown remarkable advantages. Can the logic behind this be applied to more generalized living systems? For example, in human societal systems, which are undergoing rapid extension in scale, complexity and productivity, can we use such underlying principles to reduce the costs of revolution? I have long been curious about this. So, I began my research journey in biophysics since my second year of college. My journey has progressed through: 1) theoretical studies based on statistical physics, 2) data-driven analysis based on engineering, and 3) the development of computational methods for connecting data and physical theory using machine learning. 
