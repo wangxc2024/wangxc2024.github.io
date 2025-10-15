@@ -16,3 +16,4 @@ Later, I returned to Wang’s lab. I expressed my interest in finding such relat
 
 Therefore, we must identify the limit of the information contained in the data and work to extend this limit with modern techniques. Revolution is ongoing. With the advancement of techniques, our understanding of the biological systems is different from a “black box”. Yet, as data volume grows explosively, our explanations at certain system levels remain less than fully persuasive. Unlike fields that leverage AI solely to tackle computational complexity, our understanding of living systems remains fundamentally limited. Behind the factor of variation, a “gap” still persists between bottom-up mechanism and phenomenon.
 
+Now I am learning how to fix this "gap" ...
